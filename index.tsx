@@ -6,14 +6,34 @@ export default function App() {
 
   const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTweet(event.target.value);
-  };  
+  };
 
   const addTweet = () => {
     if (newTweet.trim() !== "") {
-      const updatedTweets = [{ id: tweets.length + 1, body: newTweet }, ...tweets];
-      setTweets(updatedTweets);
+      fetch("http://localhost:8000/tweets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ body: newTweet }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setTweets((prevTweets) => [
+            { id: data.id, body: newTweet },
+            ...prevTweets,
+          ]);
+        })
+        .catch((error) => console.error("ツイートの追加に失敗しました", error));
       setNewTweet("");
     }
+  };
+
+  const fetchTweets = () => {
+    fetch("http://localhost:8000/tweets")
+      .then((response) => response.json())
+      .then((data) => setTweets(data))
+      .catch((error) => console.error("データの取得に失敗しました", error));
   };
 
   interface Tweet {
@@ -22,10 +42,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8000/tweets")
-      .then((response) => response.json())
-      .then((data) => setTweets(data))
-      .catch((error) => console.error("データの取得に失敗しました", error));
+    fetchTweets();
   }, []);
 
   return (
@@ -57,7 +74,7 @@ export default function App() {
             </div>
             <div className="user">
               <div className="userIcon">
-                <img src="" alt="User Icon" />
+                <img src="" alt="User Icon" /> {/* ここに実際のユーザーアイコンのURLを指定 */}
               </div>
               <div className="name">
                 <h5>上館誠也I哲学クラウドCEO</h5>
@@ -69,14 +86,14 @@ export default function App() {
                 <p>・2時間</p>
               </div>
               <div className="attached">
-                <img src="" alt="Attached Image" />
+                <img src="" alt="Attached Image" /> {/* ここに実際の画像ファイルのURLを指定 */}
               </div>
             </div>
             <div className="tweetText">
               <div className="text">
                 <p>{tweet.body}</p>
               </div>
-              <img src="" alt="Tweet Image" />
+              <img src="" alt="Tweet Image" /> {/* ここに実際の画像ファイルのURLを指定 */}
             </div>
             <div className="action"></div>
           </div>
@@ -85,5 +102,4 @@ export default function App() {
     </div>
   );
 }
-
 
