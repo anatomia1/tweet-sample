@@ -1,0 +1,68 @@
+html {
+    background-color: black;
+    width:100%;
+  }  
+
+.Twitter{
+    height:auto;
+    margin: 0 auto;
+    background-color: black;
+    color:white;
+    border-left: 1px solid white;
+    border: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    position: absolute;
+    top:0px;
+    left:500px;
+}
+
+.header h1{
+    font-size:15px;
+}
+
+.user{
+    display: flex;
+}
+
+.btn{
+    background-color: cornflowerblue;
+    color:white;
+}
+
+.textArea{
+    width: 100%;
+    color:white;
+    background-color: black;
+    border: 1px solid transparent;
+
+}
+
+.expandLink{
+    margin-top: 0px;
+    border: 1px solid white;
+    border-top: 1px solid white;
+    color: cornflowerblue;
+    text-align: center;
+}
+
+.form{
+    border-top: 1px solid white;
+    border: 1px solid white;
+}
+
+.userTweet{
+    border: 1px solid white;
+}
+
+.retweetDisplay p{
+    font-size: 12px;
+}
+
+.userName p{
+    font-size:12px;
+}
+
+.elapsedTime p{
+    font-size:12px;
+}
